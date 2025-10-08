@@ -1,0 +1,135 @@
+/* Color Palette:
+BG/Main: #025259
+NavElements: #007172
+Col1: #F29325
+Col2: #D94F04
+Statics: #F4E2DE */
+
+body {
+    background-color:#007172;
+}
+h1 {
+    color:#D94F04;
+    font-size:46px;
+    font-family:"Lucida Calligraphy";
+    margin:5%;
+    letter-spacing:4px;
+
+}
+h2 {
+    color:#F29325;
+    font-size:30px;
+    font-family:"Lucida Sans";
+}
+h3 {
+    color:#F29325;
+    font-size:26px;
+    font-family:"Arial";
+}
+
+.main {
+    padding: 2%;
+    margin-right:10%;
+    color:White;
+    font-family:"Arial";
+    letter-spacing:2px;
+    font-size:22px;
+}
+
+.sidebar {
+    position:fixed;
+    top:0;
+    right:0;
+    width:10%;
+    height:100%;
+    border-bottom-left-radius: 5%;
+    background-color: #025259;
+    color:#F29325;
+    padding: 10px;
+    padding-top:20px;
+    z-index:10;
+}
+.sidebar-content {
+    color:#F29325;
+    font-size:22px;
+}
+
+
+.sidebar-content-logo {
+    color:#F29325;
+    font-size:700%;
+    padding-left:15px;
+}
+
+.navbar {
+    position:fixed;
+    top:0;
+    border-bottom-left-radius:5%;
+    border-bottom-right-radius:5%;
+    width:100%;
+    height: 60px;
+    background-color: #025259;
+    color:#F29325;
+    overflow: hidden;
+    transition: height 0.3s ease, background-color 0.2s ease;
+    z-index:1;
+}
+
+.navbar:hover {
+    height:140px;
+    background-color:#014148;
+}
+
+.nav-content {
+    display: grid;
+    grid-auto-flow:column;
+    grid-auto-columns: 1fr;
+    height: 100%;
+    padding-left:9%;
+    gap:15%;
+}
+
+.navbar:hover .nav-content a{
+    gap:20px;
+    font-size:35px;
+    transition: font-size 0.3s ease, gap 0.3s ease;
+}
+
+.nav-content a {
+    color:#F29325;
+    font-size:30px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.carousel-inner {
+    margin-left:15%;
+    width:50%;
+}
+.carousel-indicators {
+    width:50%;
+}
+.carousel-control-prev {
+    margin-left:5%;
+}
+.carousel-control-next {
+    margin-right:25%;
+}
+
+.btn-login .btn{
+    font-size: 14px;
+    height: 30px;
+    align-self:center;
+    margin-top:10%;
+    background-color:#F29325;
+    color:#025259;
+}
+
+/* Expanded state - return to normal button size */
+.navbar:hover .btn-login .btn {
+    font-size: 16px;
+    padding: 6px 12px;
+    height: auto;
+}
