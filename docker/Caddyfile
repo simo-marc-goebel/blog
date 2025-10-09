@@ -1,25 +1,10 @@
 {
-    auto_https off
+    auto_https disable_redirects
+    local_certs
 }
 
-simo-blog.test:80 {
-    redir https://{host}{uri} permanent
-}
-
-simo-blog.test:443 {
-    #tls /app/certs/simo-blog.test.pem /app/certs/simo-blog.test-key.pem
-
-    root * /app
+simo-blog.test {
+    root * /app/public
     php_server
     file_server
-
-    encode gzip
-
-    handle_errors {
-                      @404 {
-                               expression {http.error.status_code} == 404
-                           }
-                      rewrite @404 /error.php
-                      php_server
-                  }
 }

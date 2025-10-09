@@ -1,6 +1,7 @@
 <?php
 //require_once 'indexold.html';
 
+var_dump($_REQUEST);
 function calculate($num1, $num2, $operator) {
     switch ($operator) {
         case '+':
@@ -20,4 +21,7 @@ function calculate($num1, $num2, $operator) {
             return "Error: Invalid operator";
     }
 }
-echo 'elloworld';
+$a = (int) $_REQUEST['a'];
+$b = (int) $_REQUEST['b'];
+$operator = $_REQUEST['operator'];
+echo calculate($a, $b, $operator );

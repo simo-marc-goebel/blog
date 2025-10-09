@@ -10,19 +10,21 @@ services:
     volumes:
       - db_data:/var/lib/mysql
 
-  php:
+  frankenphp:
     build: .
     restart: always
     environment:
       XDEBUG_MODE: debug
       XDEBUG_CONFIG: client_host=host.docker.internal client_port=9003
-      SERVER_NAME: simo-blog.test:80
     ports:
-      - "80:80"
       - "443:443"
     volumes:
-      - ./../:/app/public
+      - ./../:/app
+      - caddy_data:/data
+      - caddy_config:/config
     tty: true
 
 volumes:
   db_data:
+  caddy_data:
+  caddy_config:
