@@ -5,8 +5,14 @@ Col1: #00b3b3
 Col2: #D94F04
 Statics: #F4E2DE */
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 body {
-    background-color:#007172;
+    background-color: #007172;
+    padding-top: 60px;
 }
 h1 {
     color:#D94F04;
@@ -123,7 +129,7 @@ h3 {
     font-size: 14px;
     height: 30px;
     align-self:center;
-    margin-top:10%;
+    margin-top:5%;
     background-color:#00b3b3;
     color:#025259;
     font-family:"courier new";
@@ -139,10 +145,10 @@ h3 {
 
 /* POSTS.HTML */
 .addPostBtn{
-    margin-top:5%;
-
-    margin-right:10%;
+    margin-top:2%;
+    margin-left:80%;
     font-size:25px;
+    height:100px;
 }
 
 .postGrid{

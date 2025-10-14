@@ -1,14 +1,7 @@
 <?php
+require_once 'pages/indexold.html';
 
-//require_once 'pages/indexold.html';
-
-var_dump($_REQUEST);
-exit;
 function calculate(float|int|null $num1, float|int|null $num2, string|null $operator):float|int|string  {
-    if ($num1 == null || $num2 == null || $operator == null)
-    {
-        return "Error: One parameter was null";
-    }
     switch ($operator) {
         case '+':
             return $num1 + $num2;
@@ -27,7 +20,14 @@ function calculate(float|int|null $num1, float|int|null $num2, string|null $oper
             return "Error: Invalid operator";
     }
 }
-$a = (int) $_REQUEST['a'];
-$b = (int) $_REQUEST['b'];
-$operator = $_REQUEST['operator'];
-echo '<br> The result of the URL Params: ' . $a . $operator . $b . ' is: ' . calculate($a, $b, $operator );
+
+if (isset($_REQUEST['a'], $_REQUEST['b'], $_REQUEST['operator'])) {
+    $a = (int) $_REQUEST['a'];
+    $b = (int) $_REQUEST['b'];
+    $operator = $_REQUEST['operator'];
+
+    echo '<br> The result of the URL Params: ' . $a . $operator . $b . ' is: ' . calculate($a, $b, $operator );
+}
+else{
+    echo 'Error: One of the operators was null';
+}

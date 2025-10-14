@@ -1,66 +1,45 @@
+<?php
+// Fetch posts from database
+$query = 'SELECT p.*, u.name AS author_name FROM post p LEFT JOIN user u ON p.author = u.id ORDER BY p.createdAt DESC';
+$posts = sqlQuery($query);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
     <title>My travelling Blog - Posts</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/stylesheets/styles.css">
 </head>
 <body>
+
 <div id="navbar-placeholder"></div>
 <div id="sidebar-placeholder"></div>
 
-<button id="addPostBtn" class="addPostBtn"><i class="bi bi-plus-square-dotted"></i></button>
+<button id="addPostBtn" class="addPostBtn" style="margin-left:80%; width:45px"><i class="bi bi-plus-square-dotted"></i></button>
 
-<div class="postGrid" >
+<div class="postGrid">
+    <?php foreach ($posts as $post): ?>
     <div class="postGridContentBox">
         <div class="postGridContentAuth">
-            <p>Author: Marc</p>
-            <p>Created: 08.10.2025</p>
-            <p>At: 16:45:52</p>
+            <p>Author: <?= htmlspecialchars($post['author_name'] ?? 'Unknown') ?></p>
+            <p>Created: <?= date('d.m.Y', strtotime($post['createdAt'])) ?></p>
+            <p>At: <?= date('H:i:s', strtotime($post['createdAt'])) ?></p>
         </div>
         <div class="postGridContentText">
-            <h2>{Posts.Headlines.GetHeadlineByID(1)}</h2>
-            <p>I spent the entire afternoon trying to train my dog to respond to Shakespearean commands. "Come hither!" works about 30% of the time. "Thou art a good boy!" gets a tail wag. I think we're making progress, or he's just humorously tolerant.</p>
-            <p>The sky was the color of a database error—undefined, unreachable, and slightly threatening. I refreshed the page, hoping for clarity. Instead, I received the digital equivalent of a shrug. Maybe tomorrow the server gods will smile upon us.</p>
+            <h2><?= htmlspecialchars($post['headline']) ?></h2>
+            <p><?= nl2br(htmlspecialchars($post['postContent'])) ?></p>
+            <a href="postDetails.php?id=<?= urlencode($post['id']) ?>" class="btn btn-primary mt-2" style="height:25px;margin-bottom:5px;margin-left:80%"></a>
         </div>
         <div class="postGridContentImg">
-            <img src="assets/images/Testbild1.jpg" height="902" width="1600"/>
+            <img src="/assets/images/<?= htmlspecialchars($post['imgPath']) ?>" class="img-fluid" alt="">
         </div>
     </div>
-    <div class="postGridContentBox">
-        <div class="postGridContentAuth">
-            <p>Author: Marc</p>
-            <p>Created: 08.10.2025</p>
-            <p>At: 16:46:12</p>
-        </div>
-        <div class="postGridContentText">
-            <h2>{Posts.Headlines.GetHeadlineByID(2)}</h2>
-            <p>{Posts.PostBoxText.GetTextByID(2)} Aber jokes aside, ich will jetzt hier nur mal austesten wie das mit dem Zeilenumbruch funktioniert. Ist das gut so, kann man das lesen? Ich fand die Brasilianischen Regenwälder echt wunderschön und wurde nur viermal fast gegessen. Ha. haha. Kannste von dir nicht behaupten oder?</p>
-            <p>Test Test Test. Hilfeeeeeeeeeeeeeeeeeeemamaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdasdasdasdjkasdjklakljsdkljakjlsdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-        </div>
-        <div class="postGridContentImg">
-            <img src="../assets/images/Testbild2.jpg" height="1687" width="3000"/></div>
-    </div>
-    <div class="postGridContentBox">
-        <div class="postGridContentAuth">
-            <p>Author: Marc</p>
-            <p>Created: 08.10.2025</p>
-            <p>At: 16:55:41</p>
-        </div>
-        <div class="postGridContentText">
-            <h2>{Posts.Headlines.GetHeadlineByID(3)}</h2>
-            <p>They said I could be anything, so I became a semicolon in a sea of unclosed loops. Now I haunt the codebase like a whisper in a comment thread. One day, maybe, someone will refactor me into something meaningful. Until then, I wait.</p>
-            <p>Breakfast was three cold slices of pizza and a questionable energy drink, which means I’m legally allowed to write JavaScript now. The code works, but I can’t explain why. Ship it. Deploy it. Close your eyes and pray to the stack trace gods.</p>
-        </div>
-        <div class="postGridContentImg">
-            <img src="../assets/images/Testbild3.jpg" height="2000" width="3000"/></div>
-    </div>
+    <?php endforeach; ?>
 </div>
-
-
+<br><br><br>
 
 
 <script src="../assets/scripts/scripts.js" defer></script>
