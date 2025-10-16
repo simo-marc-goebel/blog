@@ -13,6 +13,7 @@ Statics: #F4E2DE */
 body {
     background-color: #007172;
     padding-top: 60px;
+    min-height:100vh;
 }
 h1 {
     color:#D94F04;
@@ -188,4 +189,26 @@ h3 {
     border-width: 2px;
     border-color:black;
     padding-left:3%;
+}
+
+/* postDetails */
+#postContainer{
+    margin-right:22%;
+    width:65%;
+    padding-top:55px;
+}
+#addCommentBtn{
+    margin-right:1%;
+}
+#commentsContainer{
+    margin-right:22%;
+    width:70%;
+}
+#comment-list {
+    list-style-type: none;
+    gap:10px;
+}
+.commentProfileImg{
+    width:50%;
+    aspect-ratio: 1/1;
 }

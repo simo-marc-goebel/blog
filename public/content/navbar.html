@@ -10,11 +10,11 @@
 <body> I'M TRYING SOMETHING -->
 <div class="navbar">
     <div class="nav-content">
-        <a href="https://simo-blog.test/index.php">
+        <a href="https://simo-blog.test/index">
             <i class="bi bi-house-fill"></i>
             <span class="nav-full">Home</span>
         </a>
-        <a href="https://simo-blog.test/posts.php">
+        <a href="https://simo-blog.test/index.php?page=posts">
             <i class="bi bi-postage-heart-fill"></i>
             <span class="nav-full">Posts</span>
         </a>
@@ -36,6 +36,38 @@
             </button>
         </div>
 
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="mb-3">
+                        <label for="emailInput" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="emailInput" placeholder="Enter email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="passwordInput" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="passwordInput" placeholder="Password" required>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" form="loginForm" class="btn btn-primary">Login</button>
+            </div>
+
+        </div>
     </div>
 </div>
 <!-- </body>

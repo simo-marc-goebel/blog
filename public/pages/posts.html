@@ -18,7 +18,7 @@ $posts = sqlQuery($query);
 <div id="navbar-placeholder"></div>
 <div id="sidebar-placeholder"></div>
 
-<button id="addPostBtn" class="addPostBtn" style="margin-left:80%; width:45px"><i class="bi bi-plus-square-dotted"></i></button>
+<button id="addPostBtn" class="addPostBtn" style="margin-left:80%; width:45px"><i class="bi bi-plus-square-dotted" data-bs-toggle="modal" data-bs-target="#postModal"></i></button>
 
 <div class="postGrid">
     <?php foreach ($posts as $post): ?>
@@ -31,7 +31,7 @@ $posts = sqlQuery($query);
         <div class="postGridContentText">
             <h2><?= htmlspecialchars($post['headline']) ?></h2>
             <p><?= nl2br(htmlspecialchars($post['postContent'])) ?></p>
-            <a href="postDetails.php?id=<?= urlencode($post['id']) ?>" class="btn btn-primary mt-2" style="height:25px;margin-bottom:5px;margin-left:80%"></a>
+            <a href="https://simo-blog.test/index.php?page=postDetails&id=<?= urlencode($post['id']) ?>" class="btn btn-primary mt-2" style="height:25px;margin-bottom:5px;margin-left:80%"></a>
         </div>
         <div class="postGridContentImg">
             <img src="/assets/images/<?= htmlspecialchars($post['imgPath']) ?>" class="img-fluid" alt="">
@@ -41,7 +41,39 @@ $posts = sqlQuery($query);
 </div>
 <br><br><br>
 
+<div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
-<script src="../assets/scripts/scripts.js" defer></script>
+            <div class="modal-header">
+                <h5 class="modal-title" id="postModalLabel">Add a Post</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form id="postForm">
+                    <div class="mb-3">
+                        <label for="postHeadline" class="form-label">Your Post</label>
+                        <textarea class="form-control" id="postHeadline" rows="4" maxlength="100" placeholder="Headline" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="postInput" class="form-label">Your Post</label>
+                        <textarea class="form-control" id="postInput" rows="4" maxlength="1500" placeholder="Write your post here..." required></textarea>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" form="postForm" class="btn btn-primary">Submit</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="../assets/scripts/posts.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<script src="../assets/scripts/static.js" defer></script>
 </body>
 </html>
