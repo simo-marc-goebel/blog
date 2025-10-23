@@ -11,4 +11,21 @@ fetch('content/sidebar.html')
     .then(data => {
         document.getElementById('sidebar-placeholder').innerHTML = data;
         console.log('sidebar was fetched');
+
+        const script = document.createElement('script');
+        script.src = '../assets/scripts/sidebar.js';
+        document.body.appendChild(script);
+
+        const storedUser = sessionStorage.getItem('loggedInUser');
+        console.log("dom loaded, should get storedUser now");
+        if (storedUser) {
+            updateSidebarWithUser(JSON.parse(storedUser));
+        }
     });
+
+
+function updateSidebarWithUser(user)
+{
+    document.getElementById('usernameSb').innerText = user.username;
+    document.getElementById('rolenameSb').innerText = user.rolename;
+}

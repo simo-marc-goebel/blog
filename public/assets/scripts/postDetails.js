@@ -18,7 +18,7 @@ if (!postId) {
         })
         .then(data => {
             console.log('post content');
-
+            console.log('Image path: ', data.post.imgPath);
             // Update post content
             if (data.post) {
                 document.getElementById('post-title').textContent = data.post.headline;
@@ -26,6 +26,7 @@ if (!postId) {
                 document.getElementById('post-author').textContent = data.post.name;
                 document.getElementById('post-date').textContent = data.post.createdAt;
                 document.getElementById('post-role').textContent = data.post.rolename;
+                document.getElementById('post-image').src = "/assets/images/postPics/" + data.post.imgPath;
             } else {
                 document.getElementById('post-title').textContent = 'Post not found';
                 document.getElementById('post-content').textContent = '';
