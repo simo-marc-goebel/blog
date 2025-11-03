@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'], $_POST['po
     $postID = $_POST['post_id'] ? (int) $_POST['post_id'] : 0;
     $authorId = 1; // TODO: Replace with logged-in user ID (hardcoded for now)
 
-    if ($comment === '') {
+    if ($comment === '') { // handled by both js and html - only for redundancy
         http_response_code(400);
         echo json_encode(['error' => 'Comment cannot be empty']);
         exit;
@@ -37,7 +37,7 @@ if (isset($_GET['id'])) {
 
     $post = sqlQuerySingle("SELECT * FROM post p LEFT JOIN user u ON u.id = p.author LEFT JOIN role r ON r.id = u.roleid WHERE p.id = ?", [$currentPostID]);
     $comments = sqlQueryAll("SELECT * FROM comment c LEFT JOIN user u ON u.id = c.author LEFT JOIN role r ON r.id = u.roleid WHERE c.parentPost = ? ORDER BY createdAt DESC", [$currentPostID]);
-
+    // Give the queried data to frontend
     echo json_encode([
         'post' => $post,
         'comments' => $comments
