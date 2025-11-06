@@ -1,0 +1,23 @@
+{% block body %}
+<body>
+<div>
+    <h1>Cars on the Road</h1>
+
+    {% if cars is defined and cars|length > 0 %}
+        <ul>
+            {% for car in cars %}
+                <li>
+                    Model: {{ car.getModel() }} |
+                    Color: {{ car.getColor() }} |
+                    Speed: {{ car.getSpeed() }}
+                </li>
+            {% endfor %}
+        </ul>
+        <p>All cars shown</p>
+    {% else %}
+        <p>No cars found.</p>
+    {% endif %}
+</div>
+</body>
+
+{% endblock %}

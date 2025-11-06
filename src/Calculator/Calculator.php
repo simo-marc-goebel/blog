@@ -1,7 +1,7 @@
 <?php
 
 namespace SimoMarcGoebel\Blog\Calculator;
-class Calculator
+class Calculator implements CalculatorInterface
 {
     function calculate(float $a,float $b, string $op) : float | string{
         switch ($op) {
