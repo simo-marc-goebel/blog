@@ -7,7 +7,11 @@
         <ul>
             {% for car in cars %}
                 <li>
-                    Model: {{ car.getModel() }} |
+                    {% if car.isCar() %}
+                        Model: {{ car.getModel() }} |
+                    {% else %}
+                        Title: {{ car.getTitle() }} |
+                    {% endif %}
                     Color: {{ car.getColor() }} |
                     Speed: {{ car.getSpeed() }}
                 </li>

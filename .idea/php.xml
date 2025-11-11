@@ -32,6 +32,7 @@
       <path value="$PROJECT_DIR$/vendor/symfony/deprecation-contracts" />
       <path value="$PROJECT_DIR$/vendor/psr/http-server-handler" />
       <path value="$PROJECT_DIR$/vendor/httpsoft/http-emitter" />
+      <path value="$PROJECT_DIR$/vendor/symfony/routing" />
     </include_path>
   </component>
   <component name="PhpInterpreters">

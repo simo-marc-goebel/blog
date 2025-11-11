@@ -1,11 +1,11 @@
 const params = new URLSearchParams(window.location.search); // Get the URL Params ( ?id=5 )
-const postId = params.get('id');
+const postId = params.get('postID');
 
 if (!postId) { // Check if post ID is present, should never happen but just in case
-    console.log('No post ID');
-    alert('No post ID specified in the URL.');
+    console.log('No post ID - just update your JS finally you dumdum');
+    //alert('No post ID specified in the URL.');
 } else {
-    fetch(`postDetails.php?id=${postId}`) // Gets the postID from the specified URL param
+    fetch(`postDetails?id=${postId}`) // Gets the postID from the specified URL param
         .then(response => { // Prevent DB errors or similar
             console.log('response');
             if (!response.ok) {
@@ -79,24 +79,26 @@ if (!postId) { // Check if post ID is present, should never happen but just in c
             return;
         }
 
-        fetch('postDetails.php', { // Sends the comment to PHP backend
+        fetch('insertComment.php', { // or the endpoint handling insert
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: new URLSearchParams({ comment: comment, post_id: postId }) // Creates the data structure for PHP
+            body: new URLSearchParams({
+                comment: comment,
+                post_id: postId,
+                user_id: CURRENT_USER_ID // you'll need this value from session or JS
+            })
         })
             .then(response => response.text())
             .then(data => {
                 console.log('Server response:', data);
                 alert("Comment submitted successfully!");
-
-                // Hide modal, clear form and reload the page to show the new comment
                 const modal = bootstrap.Modal.getInstance(document.getElementById('commentModal'));
                 modal.hide();
                 document.getElementById('commentForm').reset();
                 window.location.reload();
-            })
+            });
 
         // Clear the textarea
         this.reset();

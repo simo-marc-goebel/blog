@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ pHeadline | default('Blog Post') }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/stylesheets/post_detail.css">
+    <link rel="stylesheet" href="/assets/stylesheets/styles.css">
+</head>
+{% block body %}
+<body>
+<div id="navbar-placeholder"></div>
+<div id="sidebar-placeholder"></div>
+
+<!-- === Post Headline === -->
+<div class="container mt-4">
+    <h1 class="text-center mb-5 post-title">{{ post.headline | default('No Post found') }}</h1>
+
+    <!-- === Post Content Grid === -->
+    <div class="row g-4 align-items-start post-grid">
+
+        <!-- Left: Author Info -->
+        <div class="col-md-2 author-info">
+            <div class="text-muted small">Author: {{ post.author.username }}</div>
+            <div class="text-muted small">Role: {{ post.author.role }}</div>
+            <div class="text-muted small">Created: {{ post.cretedAt|date('Y-m-d H:i') }}</div>
+        </div>
+
+        <!-- Center: Post Body -->
+        <div class="col-md-6 post-body">
+            <article>
+                <p>{{ post.content|raw }}</p>
+            </article>
+        </div>
+
+        <!-- Right: Post Image -->
+        <div class="col-md-4 post-image text-center">
+            {% if pImgpath %}
+                <img src='/assets/images/postPics/'{{ post.imgPath }} class="img-fluid rounded" alt="Post Image">
+            {% else %}
+                <img src='/assets/images/postPics/missing.jpg' class="img-fluid rounded" alt="No Image">
+            {% endif %}
+        </div>
+
+    </div>
+
+    <!-- Add Comment Button -->
+    <div class="row mt-4">
+        <div class="col text-center">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#commentModal">Add Comment</button>
+        </div>
+    </div>
+</div>
+
+<!-- === Comments Section === -->
+<div class="container mt-5 comments-container">
+    <h3>Comments</h3>
+
+    {% if comments is not empty %}
+        {% for comment in comments %}
+            <div class="row py-3 border-bottom align-items-center comment-row">
+
+                <!-- Left: Commenter Details -->
+                <div class="col-md-2 commenter-info">
+                    <div class="text-muted small">By: {{ comment.commentAuthor.username }}</div>
+                    <div class="text-muted small">Role: {{ comment.commentAuthor.role }}</div>
+                    <div class="text-muted small">Posted: {{ comment.createdAt|date('Y-m-d H:i') }}</div>
+                </div>
+
+                <!-- Center: Comment Text -->
+                <div class="col-md-6 comment-text">
+                    <p>{{ comment.comment }}</p>
+                </div>
+
+                <!-- Right: Commenter Profile Picture -->
+                <div class="col-md-1 text-center commenter-image">
+                    {% if comment.commentAuthor.profilePicture %}
+                        <img src="{{ '/assets/images/profPics/' ~ comment.commentAuthor.profilePicture }}" class="img-fluid rounded-circle" alt="Profile Picture">
+                    {% else %}
+                        <img src='/assets/images/profPics/default.jpg' class="img-fluid rounded-circle" alt="Default Profile Picture">
+                    {% endif %}
+                </div>
+
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="text-muted">No comments yet. Be the first to comment!</p>
+    {% endif %}
+</div>
+
+<!-- === Comment Modal === -->
+<div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="commentModalLabel">Add a Comment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form id="commentForm" method="post" >
+                    <div class="mb-3">
+                        <label for="commentInput" class="form-label">Your Comment</label>
+                        <textarea class="form-control" id="commentInput" name="commentText" rows="4" maxlength="1500" placeholder="Write your comment here..." required></textarea>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" form="commentForm" class="btn btn-primary">Submit</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src='/assets/scripts/postDetails.js' defer></script>
+<script src='/assets/scripts/static.js' defer></script>
+
+</body>
+{% endblock %}

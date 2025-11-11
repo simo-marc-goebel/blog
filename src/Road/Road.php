@@ -1,10 +1,11 @@
 <?php
 namespace SimoMarcGoebel\Blog\Road;
-use SimoMarcGoebel\Blog\Car\Car;
+use SimoMarcGoebel\Blog\RoadObjects\Car\Car;
+use SimoMarcGoebel\Blog\RoadObjects\Vehicle\Vehicle;
 
 class Road
 {
-    public array $cars;
+    public array $vehicles;
     function __construct()
     {
         $this->buildRoad();
@@ -14,15 +15,16 @@ class Road
         $sedan = new Car(80, "red", "Sedan");
         $sport = new Car(180, "silver", "Sport");
         $pickup = new Car(120, "Black", "Pickup");
+        $truck = new Vehicle(90, "white", "Semi");
 
-        $this->cars = [$sedan, $sport, $pickup];
+        $this->vehicles = [$sedan, $sport, $pickup, $truck];
     }
 
     /**
      * @return array<Car> Returns all cars on the road
      */
-    public function getCars() : array
+    public function getVehicles() : array
     {
-        return $this->cars;
+        return $this->vehicles;
     }
 }
