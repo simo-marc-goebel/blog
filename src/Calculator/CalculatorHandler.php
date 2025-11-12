@@ -2,20 +2,26 @@
 
 namespace SimoMarcGoebel\Blog\Calculator;
 
+use Laminas\Diactoros\Response\HtmlResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use SimoMarcGoebel\Blog\Handler\RenderHandler;
 use Twig\Environment;
-use Twig\Loader\FilesystemLoader;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
-class CalculatorHandler
+readonly class CalculatorHandler
 {
-    private RenderHandler $renderer;
-
-    public function __construct()
+    public function __construct(private Environment $twig, private Calculator $calculator)
     {
-        $this->renderer = new RenderHandler("Calculator");
+
     }
+
+    /**
+     * @throws RuntimeError
+     * @throws SyntaxError
+     * @throws LoaderError
+     */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $queryParams = $request->getQueryParams();
@@ -25,20 +31,15 @@ class CalculatorHandler
 
         $result = null;
         if ($a !== null && $b !== null && $op !== null) {
-            $calculator = new Calculator();
-            $result = $calculator->calculate($a, $b, $op);
+            $result = $this->calculator->calculate($a, $b, $op);
         }
-        // twig
-        $loader = new FilesystemLoader('../src/Calculator/Templates');
-        $twig = new Environment($loader, [
-            'cache' => false,
-        ]);
-
-        return $this->renderer->handle($request, 'calculator.twig', [
+        $html = $this->twig->render('calculator.twig', [
             'a' => $a,
             'b' => $b,
             'op' => $op,
             'result' => $result,
         ]);
+        return new HtmlResponse($html);
+
     }
 }
